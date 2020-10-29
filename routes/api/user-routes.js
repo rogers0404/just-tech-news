@@ -63,7 +63,7 @@ router.post('/', (req, res) => {
       }
   
       const validPassword = dbUserData.checkPassword(req.body.password);
-      if (!validPassword) {
+      if (validPassword) {
         res.status(400).json({ message: 'Incorrect password!' });
         return;
       }
@@ -88,7 +88,7 @@ router.put('/:id', (req, res) => {
           res.status(404).json({ message: 'No user found with this id' });
           return;
         }
-        res.json(dbUserData);
+        res.json({ user: dbUserData });
       })
       .catch(err => {
         console.log(err);
